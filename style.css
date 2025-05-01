@@ -516,7 +516,7 @@ a { text-decoration: none; color: inherit; }
     .hero-split.hero-orange-theme .hero-split-subheadline { max-width: none; }
     .hero-split.hero-orange-theme .hero-cta-on-orange { font-size: 1em; padding: 12px 25px;} /* Ajusta CTA hero no mobile */
 
-    .plan-card.residential {padding: 15px 55px;}
+    .plan-card.residential {padding: 15px 55px; min-height: 505px;}
 
 
     .hero-split.hero-orange-theme .hero-split-image {
@@ -560,7 +560,7 @@ a { text-decoration: none; color: inherit; }
      /* Ajustes de tamanho de fonte e padding para telas ainda menores */
      .hero-split.hero-orange-theme .hero-split-headline { font-size: 2em; }
      .hero-split.hero-orange-theme .hero-split-subheadline { font-size: 0.9em; }
-      .hero-split.hero-orange-theme .hero-split-content { padding: 40px 15px; }
+     .hero-split.hero-orange-theme .hero-split-content { padding: 40px 15px; }
      .hero-split.hero-orange-theme .hero-split-image { padding: 15px; min-height: 250px;} /* Ajusta padding e altura mínima da imagem */
 
      .plan-grid { grid-template-columns: 1fr; max-width: 350px; margin-left: auto; margin-right: auto; }

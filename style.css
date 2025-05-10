@@ -59,12 +59,19 @@ a { text-decoration: none; color: inherit; }
 
 .hero-split.hero-orange-theme .hero-split-headline {
     font-family: 'Poppins', sans-serif;
-    font-size: 3.0em;
     font-weight: 700;
     line-height: 1.25;
-    color: #ffffff; /* <<< TEXTO BRANCO */
+    color: #ffffff;
     margin-bottom: 20px;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.1); /* Sombra sutil para legibilidade */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    font-size: 4.5em;
+    letter-spacing: -0.03em;
+    background: linear-gradient(-90deg, #021b4d, #2c4d5c);
+    background-size: 100%;
+    background-position: 0 0;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: left;
 }
 
 .hero-split.hero-orange-theme .hero-split-subheadline {
@@ -558,7 +565,7 @@ a { text-decoration: none; color: inherit; }
 }
 @media (max-width: 576px) {
      /* Ajustes de tamanho de fonte e padding para telas ainda menores */
-     .hero-split.hero-orange-theme .hero-split-headline { font-size: 2em; }
+     .hero-split.hero-orange-theme .hero-split-headline { font-size: 2.5em; }
      .hero-split.hero-orange-theme .hero-split-subheadline { font-size: 0.9em; }
      .hero-split.hero-orange-theme .hero-split-content { padding: 40px 15px; }
      .hero-split.hero-orange-theme .hero-split-image { padding: 15px; min-height: 250px;} /* Ajusta padding e altura mínima da imagem */

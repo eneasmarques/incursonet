@@ -644,7 +644,7 @@ a { text-decoration: none !important; color: inherit; }
 
 
     /* Outras seções */
-    #planos-residenciais .plan-grid { grid-template-columns: repeat(2, 1fr); }
+    #planos-residenciais .plan-grid { grid-template-columns: 1fr; max-width: 500px; margin-left: auto; margin-right: auto; }
     #planos-corporativos .plan-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
     .plan-section h2, .localidades-section h2, .contato-section h2 { font-size: 2.2em; }
     .plan-card .plan-header h3 { font-size: 3.5em; }

@@ -1,5 +1,45 @@
 /* Reset básico e Fontes */
 * {box-sizing: border-box;margin: 0;padding: 0;}
+
+/* 
+  === SUGESTÕES DE MELHORIAS VISUAIS E UX/UI ===
+  
+  1. NAVEGAÇÃO (Header):
+     - Adicionar navegação sticky no topo com links para seções (Planos Residenciais, Corporativos, Localidades)
+     - Logo clicável levando para o início
+     - Menu mobile com hamburguer
+  
+  2. CALL-TO-ACTION (CTA):
+     - Adicionar segundo CTA flutuante/sticky no rodapé em mobile
+     - Aumentar contraste dos botões em mobile
+     - Adicionar ícones aos botões (WhatsApp, telefone)
+  
+  3. CARDS DE PLANOS:
+     - Destaque visual para plano mais popular (border especial, badge "MAIS POPULAR")
+     - Animação de pulse/brilho no hover
+     - Sombra gradiente em vez de sombra única
+  
+  4. SEÇÕES:
+     - Adicionar spacing/padding consistente entre seções
+     - Usar ícones grandes e visuais antes de cada seção
+     - Padrão de cores mais vibrante nas seções alternadas
+  
+  5. RESPONSIVIDADE:
+     - Testar em devices reais (mobile, tablet)
+     - Garantir touch targets de pelo menos 44x44px
+     - Melhorar legibilidade em telas pequenas
+  
+  6. PERFORMANCE:
+     - Lazy load de imagens
+     - Otimizar SVGs
+     - Adicionar transições suaves entre estados
+  
+  7. ACESSIBILIDADE:
+     - Adicionar focus states nos botões/links
+     - Melhorar contraste de cores em alguns textos
+     - Adicionar atributo role para cards de planos
+*/
+
 body {
     font-family: 'Poppins', sans-serif; /* Fonte geral */
     line-height: 1.6;
@@ -9,7 +49,7 @@ body {
 }
 .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 img { max-width: 100%; height: auto; display: block; }
-a { text-decoration: none; color: inherit; }
+a { text-decoration: none !important; color: inherit; }
 
 /* --- Variáveis de Cor --- */
 :root {
@@ -29,8 +69,12 @@ a { text-decoration: none; color: inherit; }
 /* --- HERO SPLIT SCREEN - ORANGE THEME --- */
 .hero-split.hero-orange-theme {
     display: flex;
-    min-height: 70vh; /* Ajuste a altura conforme necessário */
-    /* Colunas filhas definem a cor ou imagem de suas áreas */
+    /* Degradê como imagem de fundo única - Cores mais vivas */
+    background: linear-gradient(135deg, #ff4500 0%, #ff6b1a 35%, #ff8800 65%, #ffa500 100%);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    position: relative;
 }
 
 /* Coluna Esquerda: Conteúdo Laranja */
@@ -42,13 +86,15 @@ a { text-decoration: none; color: inherit; }
     justify-content: center;
     align-items: flex-start;
     color: #ffffff; /* <<< TEXTO BRANCO */
-    background-color: var(--color-accent); /* <<< FUNDO LARANJA AQUI */
-    /* Removemos o background-color daqui, pois está no pai (.hero-split.hero-orange-theme) */
+    background-color: transparent; /* Transparente para ver o gradiente do pai */
 }
 
 .hero-split.hero-orange-theme .hero-split-logo {
-    max-width: 170px;
+    max-width: 220px;
     margin-bottom: 35px;
+    display: block;
+    object-fit: cover;
+    object-position: center;
     /* Descomente abaixo se estiver usando logo escura e precisar do filtro */
     /* filter: brightness(0) invert(1); */
 }
@@ -58,13 +104,14 @@ a { text-decoration: none; color: inherit; }
 } */
 
 .hero-split.hero-orange-theme .hero-split-headline {
+    text-transform: uppercase;
     font-family: 'Poppins', sans-serif;
     font-weight: 700;
     line-height: 1.25;
     color: #ffffff;
     margin-bottom: 20px;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    font-size: 4.5em;
+    font-size: 5em;
     letter-spacing: -0.03em;
     background: linear-gradient(-90deg, #ffffff, #e5d3af);
     background-size: 100%;
@@ -72,7 +119,6 @@ a { text-decoration: none; color: inherit; }
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-align: left;
-    text-transform: uppercase;
 }
 
 .hero-split.hero-orange-theme .hero-split-subheadline {
@@ -102,17 +148,17 @@ a { text-decoration: none; color: inherit; }
 /* Coluna Direita: Imagem de Fundo (Agora contém a tag img) */
 .hero-split.hero-orange-theme .hero-split-image {
     flex-basis: 50%;
-    padding: 40px; /* Espaço ao redor da imagem */
+    padding: 0; /* Sem padding - imagem alinhada à base */
     display: flex; /* Ativa flexbox para centralizar o conteúdo (a imagem) */
     justify-content: center; /* Centraliza horizontalmente */
-    align-items: center; /* Centraliza verticalmente */
+    align-items: flex-end; /* Alinha com a parte inferior */
     overflow: hidden; /* Garante que a imagem seja cortada com border-radius em mobile */
-    background-color: var(--color-accent); /* <<< FUNDO LARANJA AQUI */
+    background-color: transparent; /* Transparente para ver o gradiente do pai */
 }
 
 .hero-split.hero-orange-theme .hero-split-image img {
-     max-width: 90%; /* Controla o tamanho máximo da logo dentro do container */
-     max-height: 90%; /* Controla a altura máxima */
+     max-width: 120%; /* Aumenta significativamente o tamanho */
+     max-height: 120%; /* Aumenta altura máxima */
      height: auto;
      object-fit: contain; /* Redimensiona a imagem para caber sem cortar ou distorcer */
      display: block; /* Garante que a imagem se comporte como bloco */
@@ -209,21 +255,34 @@ a { text-decoration: none; color: inherit; }
 /* Grid dos Planos */
 .plan-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 25px;
     margin-top: 40px;
 }
 
+/* Grid específico para planos residenciais - 3 colunas fixas */
+#planos-residenciais .plan-grid {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Grid específico para planos corporativos - auto-fit */
+#planos-corporativos .plan-grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
 /* --- Cards de Planos --- */
 .plan-card {
-    border-radius: 10px;
-    border: 1px solid var(--border-color);
-    box-shadow: 0 4px 10px var(--shadow-color);
-    padding: 25px 20px;
+    border-radius: 12px;
+    border: 2px solid var(--border-color);
+    box-shadow: 0 4px 12px rgba(29, 10, 93, 0.08);
+    padding: 30px 22px;
     text-align: center;
     display: flex;
     flex-direction: column;
-    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    min-height: 580px; /* Altura mínima para conteúdo não quebrar */
 }
 
 /* Fundo padrão (branco) */
@@ -238,9 +297,10 @@ a { text-decoration: none; color: inherit; }
 
 
 .plan-card:hover {
-    transform: translateY(-6px);
+    transform: translateY(-8px);
     border-color: var(--color-accent);
-    box-shadow: 0 6px 18px var(--shadow-color), 0 0 10px rgba(255, 93, 0, 0.15);
+    box-shadow: 0 12px 28px rgba(255, 93, 0, 0.18), 0 0 1px rgba(255, 93, 0, 0.1);
+    background-color: #fafaf8;
 }
 
 /* Cabeçalho do Card (Velocidade) */
@@ -290,22 +350,60 @@ a { text-decoration: none; color: inherit; }
     margin-bottom: 10px;
 }
 
+.plan-card .plan-package { /* Identificação de pacote (residencial) */
+    font-size: 0.8em;
+    color: var(--color-accent);
+    margin-top: 8px;
+    margin-bottom: 0;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Badge NOVO para planos destacados */
+.badge-new {
+    display: inline-block;
+    background-color: var(--color-accent);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.7em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 8px rgba(255, 93, 0, 0.3);
+}
+
+/* Quebra de linha antes dos planos novos */
+.plan-card.plan-new {
+    flex-basis: calc(50% - 15px); /* Para ficar 2 planos por linha */
+}
+
 /* Lista de Features (Ícones + Texto) */
 .plan-features {
     list-style: none;
-    padding: 0;
-    margin: 25px 0; /* Margem vertical normal */
-    text-align: left; /* <<< Garante alinhamento esquerdo */
+    padding: 0 5px;
+    margin: 20px 0 25px 0;
+    text-align: left;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
 }
 
 .feature-item {
     display: flex;
-    align-items: flex-start; /* Alinha pelo topo */
-    font-size: 1em; /* <<< Tamanho aumentado */
+    align-items: center; /* Alinha verticalmente no centro */
+    font-size: 0.95em;
     color: var(--text-secondary);
-    text-align: left; /* <<< Garante alinhamento esquerdo */
-    width: 90%;
-    height: 45px;
+    text-align: left;
+    width: 100%;
+    min-height: 40px;
+    margin: 2px 0;
+    padding: 2px 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .span.feature-item-none-img {
@@ -313,22 +411,21 @@ a { text-decoration: none; color: inherit; }
 }
 
 .feature-item img {
-    width: 45px;
-    height: 45px;
-    margin-right: 10px;
-    
-    
-     /* <<< Borda sutil na imagem */
-     /* <<< Borda arredondada na imagem */
-     /* Adiciona um pequeno padding interno se quiser afastar a borda do ícone */
-     /* Fundo branco sutil para a borda aparecer em fundos coloridos */
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    margin-right: 12px;
+    margin-top: 0;
+    object-fit: contain;
+    background-color: var(--bg-primary);
     border-radius: 8px;
-    padding: 3px;
-    border: none;
+    border: 1px solid rgba(29, 10, 93, 0.1);
 }
 
 .feature-item span {
-    line-height: 2.4;
+    line-height: 1.3;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 .feature-item .feature-note {
      font-weight: bold;
@@ -455,11 +552,10 @@ a { text-decoration: none; color: inherit; }
 .contato-info a {
     color: var(--color-accent);
     text-decoration: none;
-    border-bottom: 1px dashed rgba(255, 93, 0, 0.5);
-    transition: color 0.3s ease, border-bottom-color 0.3s ease;
+    transition: color 0.3s ease;
     font-weight: 500;
 }
-.contato-info a:hover { color: var(--color-accent-hover); border-bottom-color: var(--color-accent-hover); }
+.contato-info a:hover { color: var(--color-accent-hover); }
 .contato-info.addresses strong { color: var(--text-primary); font-weight: 600; }
 
 
@@ -476,7 +572,7 @@ a { text-decoration: none; color: inherit; }
 
 .footer a {
     color: #ffffff; /* Links brancos */
-    text-decoration: underline;
+    text-decoration: none;
 }
 .footer a:hover {
     color: var(--color-accent); /* Laranja no hover */
@@ -486,7 +582,8 @@ a { text-decoration: none; color: inherit; }
 @media (max-width: 1200px) {
      .container { max-width: 960px;}
      .hero-split.hero-orange-theme .hero-split-headline { font-size: 2.8em; } /* Ajuste hero */
-     .plan-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+     #planos-residenciais .plan-grid { grid-template-columns: repeat(3, 1fr); }
+     #planos-corporativos .plan-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
      .plan-card .plan-header h3 { font-size: 4em; }
 }
 @media (max-width: 992px) {
@@ -496,10 +593,10 @@ a { text-decoration: none; color: inherit; }
      .hero-split.hero-orange-theme .hero-split-subheadline { font-size: 1.0em; }
      /* Ajusta padding do hero em telas menores */
      .hero-split.hero-orange-theme .hero-split-content { padding: 4% 6%; }
-     .hero-split.hero-orange-theme .hero-split-image { padding: 4% 6%; }
+     .hero-split.hero-orange-theme .hero-split-image { padding: 0; }
 
-
-     .plan-grid { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px;}
+     #planos-residenciais .plan-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+     #planos-corporativos .plan-grid { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; }
      .plan-card .plan-header h3 { font-size: 3.8em; }
      .plan-section h2, .localidades-section h2, .contato-section h2 { font-size: 2.4em; }
 }
@@ -509,6 +606,7 @@ a { text-decoration: none; color: inherit; }
     .hero-split.hero-orange-theme {
         flex-direction: column; /* Stack */
         min-height: auto; /* Altura automática quando empilhado */
+        background-attachment: scroll; /* Muda para scroll em mobile para melhor performance */
     }
     .hero-split.hero-orange-theme .hero-split-content {
         flex-basis: auto; /* Não mais 50% */
@@ -516,6 +614,7 @@ a { text-decoration: none; color: inherit; }
         text-align: center;
         align-items: center;
         order: 1; /* <<< Conteúdo AGORA acima da imagem */
+        background-color: transparent; /* Mantém transparência */
     }
      /* Centraliza logo no modo empilhado */
      .hero-split.hero-orange-theme .hero-split-logo { margin-left: auto; margin-right: auto;}
@@ -531,11 +630,10 @@ a { text-decoration: none; color: inherit; }
         flex-basis: auto; /* Não mais 50% */
         min-height: 300px; /* Altura mínima para a imagem em mobile */
         order: 2; /* <<< Imagem AGORA abaixo do conteúdo */
-        padding: 20px; /* Padding ajustado para mobile */
-        margin: 20px; /* Adiciona margin e centraliza o bloco da imagem */
+        padding: 0; /* Sem padding */
+        margin: 0; /* Sem margin */
         border-radius: 6px; /* Borda arredondada para a imagem em mobile */
-        /* O fundo laranja já está no pai (.hero-split.hero-orange-theme) */
-        /* background-color: rgba(255, 255, 255, 0.1); */ /* Adiciona um fundo sutil branco no container da imagem para contraste */
+        background-color: transparent; /* Mantém transparência */
      }
     /* Garante que a imagem dentro do container em mobile respeite o padding e margin */
      .hero-split.hero-orange-theme .hero-split-image img {
@@ -546,7 +644,8 @@ a { text-decoration: none; color: inherit; }
 
 
     /* Outras seções */
-    .plan-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+    #planos-residenciais .plan-grid { grid-template-columns: repeat(2, 1fr); }
+    #planos-corporativos .plan-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
     .plan-section h2, .localidades-section h2, .contato-section h2 { font-size: 2.2em; }
     .plan-card .plan-header h3 { font-size: 3.5em; }
     /* Removido: Centralização de features e preço nos cards em telas pequenas */
@@ -569,7 +668,7 @@ a { text-decoration: none; color: inherit; }
      .hero-split.hero-orange-theme .hero-split-headline { font-size: 2.5em; }
      .hero-split.hero-orange-theme .hero-split-subheadline { font-size: 0.9em; }
      .hero-split.hero-orange-theme .hero-split-content { padding: 40px 15px; }
-     .hero-split.hero-orange-theme .hero-split-image { padding: 15px; min-height: 250px;} /* Ajusta padding e altura mínima da imagem */
+     .hero-split.hero-orange-theme .hero-split-image { padding: 0; min-height: 250px;} /* Sem padding em smartphones */
 
      .plan-grid { grid-template-columns: 1fr; max-width: 350px; margin-left: auto; margin-right: auto; }
      .plan-section h2, .localidades-section h2, .contato-section h2 { font-size: 2em; }
